@@ -1,0 +1,75 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Category {
+  id         String     @id @default(uuid())
+  name       String     @unique
+  sort_order Int        @default(0)
+  created_at DateTime   @default(now())
+  items      MenuItem[]
+
+  @@map("categories")
+}
+
+model MenuItem {
+  id           String      @id @default(uuid())
+  category_id  String
+  name         String
+  description  String?
+  price        Float
+  image_url    String?
+  is_available Boolean     @default(true)
+  is_veg       Boolean     @default(true)
+  created_at   DateTime    @default(now())
+  updated_at   DateTime    @updatedAt
+  category     Category    @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  order_items  OrderItem[]
+
+  @@map("menu_items")
+}
+
+model Table {
+  id           String   @id @default(uuid())
+  table_number Int      @unique
+  qr_code_url  String?
+  status       String   @default("vacant") // vacant, occupied, billing_pending
+  capacity     Int      @default(4)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  @@map("tables")
+}
+
+model Order {
+  id            String      @id @default(uuid())
+  table_number  Int
+  customer_name String
+  status        String      @default("placed") // placed, preparing, ready, completed, paid
+  total_amount  Float       @default(0.0)
+  created_at    DateTime    @default(now())
+  updated_at    DateTime    @updatedAt
+  items         OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id                   String    @id @default(uuid())
+  order_id             String
+  item_id              String?
+  item_name            String
+  quantity             Int       @default(1)
+  unit_price           Float
+  special_instructions String?
+  created_at           DateTime  @default(now())
+  order                Order     @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  menu_item            MenuItem? @relation(fields: [item_id], references: [id], onDelete: SetNull)
+
+  @@map("order_items")
+}
