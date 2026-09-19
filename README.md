@@ -6,11 +6,11 @@ A clean, full-stack QR-based ordering system designed for restaurants. Customers
 
 ## 📸 App Preview
 
-| Customer Menu | Kitchen Display (KDS) | Cashier Dashboard |
-| :---: | :---: | :---: |
-| <img src="./images/customer.png" width="260" alt="Customer Menu" /> | <img src="./images/kitchen.png" width="260" alt="Kitchen View" /> | <img src="./images/reception.png" width="260" alt="Reception View" /> |
+| Customer Menu | Cashier Dashboard |
+| :---: | :---: |
+| <img src="./images/customer.png" width="260" alt="Customer Menu" /> |  <img src="./images/reception.png" width="260" alt="Reception View" /> |
 
-*(Make sure your screenshots are placed inside the `images/` folder as `customer.png`, `kitchen.png`, and `reception.png`)*
+*(Make sure your screenshots are placed inside the `images/` folder as `customer.png` and `reception.png`)*
 
 ---
 
